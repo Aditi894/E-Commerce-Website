@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BigBasket Grocery Store</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+}
+
+body{
+background:#f5f5f5;
+}
+
+/* NAVBAR */
+
+nav{
+background:#84c225;
+color:white;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 40px;
+}
+
+nav h2{
+font-size:24px;
+}
+
+.search-box{
+display:flex;
+gap:5px;
+}
+
+.search-box input{
+padding:6px;
+border:none;
+border-radius:3px;
+}
+
+.search-box button{
+padding:6px 10px;
+border:none;
+background:white;
+color:#84c225;
+cursor:pointer;
+font-weight:bold;
+}
+
+.cart-btn{
+background:white;
+color:#84c225;
+border:none;
+padding:8px 15px;
+cursor:pointer;
+font-weight:bold;
+}
+
+/* HERO SECTION WITH VEGETABLE IMAGE */
+
+.hero{
+background:url("https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg");
+background-size:cover;
+background-position:center;
+height:350px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+color:white;
+}
+
+.hero h1{
+font-size:40px;
+background:rgba(0,0,0,0.5);
+padding:10px 20px;
+border-radius:8px;
+}
+
+.hero p{
+margin-top:10px;
+font-size:18px;
+background:rgba(0,0,0,0.5);
+padding:8px 15px;
+border-radius:8px;
+}
+
+/* CATEGORY */
+
+.categories{
+padding:40px;
+text-align:center;
+}
+
+.category-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+gap:20px;
+margin-top:20px;
+}
+
+.category{
+background:rgb(141, 105, 105);
+padding:20px;
+border-radius:10px;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
+font-weight:bold;
+}
+
+/* PRODUCTS */
+
+.container{
+padding:40px;
+}
+
+.products{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:25px;
+}
+
+.product{
+background:white;
+padding:15px;
+border-radius:10px;
+text-align:center;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+
+.product img{
+width:100%;
+height:150px;
+object-fit:cover;
+border-radius:8px;
+}
+
+.product h3{
+margin:10px 0;
+}
+
+.product p{
+color:green;
+font-weight:bold;
+}
+
+.product button{
+margin-top:10px;
+padding:8px 12px;
+border:none;
+background:#84c225;
+color:white;
+cursor:pointer;
+border-radius:5px;
+}
+
+/* CART */
+
+.cart{
+position:fixed;
+right:-350px;
+top:0;
+width:350px;
+height:100%;
+background:white;
+box-shadow:-3px 0 10px rgba(0,0,0,0.2);
+padding:20px;
+transition:0.4s;
+overflow:auto;
+}
+
+.cart.active{
+right:0;
+}
+
+.cart h2{
+margin-bottom:20px;
+}
+
+.cart-item{
+display:flex;
+justify-content:space-between;
+margin-bottom:10px;
+border-bottom:1px solid #ddd;
+padding-bottom:5px;
+}
+
+.cart-item button{
+background:red;
+border:none;
+color:white;
+padding:4px 8px;
+cursor:pointer;
+}
+
+.total{
+margin-top:20px;
+font-size:18px;
+font-weight:bold;
+}
+
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+
+<nav>
+
+<h2>BigBasket</h2>
+
+<div class="search-box">
+<input type="text" placeholder="Search for products">
+<button>Search</button>
+</div>
+
+<button class="cart-btn" onclick="toggleCart()">
+Cart (<span id="cart-count">0</span>)
+</button>
+
+</nav>
+
+<!-- HERO -->
+
+<section class="hero">
+
+<h1>Fresh Groceries Delivered to Your Doorstep</h1>
+
+<p>Shop vegetables, fruits and daily essentials at the best price</p>
+
+</section>
+
+<!-- CATEGORY -->
+
+<section class="categories">
+
+<h2>Shop by Category</h2>
+
+<div class="category-grid">
+
+<div class="category">Fruits & Vegetables</div>
+<div class="category">Foodgrains</div>
+<div class="category">Bakery</div>
+<div class="category">Beverages</div>
+<div class="category">Beauty</div>
+
+</div>
+
+</section>
+
+<!-- PRODUCTS -->
+
+<div class="container">
+
+<h2>Fresh Groceries</h2>
+<br>
+
+<div class="products">
+
+<div class="product">
+<img src="https://upload.wikimedia.org/wikipedia/commons/1/15/Red_Apple.jpg">
+<h3>Apple</h3>
+<p>₹120 / kg</p>
+<button onclick="addToCart('Apple',120)">Add to Cart</button>
+</div>
+
+<div class="product">
+<img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Banana-Single.jpg">
+<h3>Banana</h3>
+<p>₹60 / dozen</p>
+<button onclick="addToCart('Banana',60)">Add to Cart</button>
+</div>
+
+<div class="product">
+<img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Milk_glass.jpg">
+<h3>Milk</h3>
+<p>₹50 / litre</p>
+<button onclick="addToCart('Milk',50)">Add to Cart</button>
+</div>
+
+<div class="product">
+<img src="https://upload.wikimedia.org/wikipedia/commons/8/88/Bright_red_tomato_and_cross_section02.jpg">
+<h3>Tomato</h3>
+<p>₹40 / kg</p>
+<button onclick="addToCart('Tomato',40)">Add to Cart</button>
+</div>
+
+<div class="product">
+<img src="https://upload.wikimedia.org/wikipedia/commons/c/c4/Orange-Fruit-Pieces.jpg">
+<h3>Orange</h3>
+<p>₹90 / kg</p>
+<button onclick="addToCart('Orange',90)">Add to Cart</button>
+</div>
+
+</div>
+</div>
+
+<!-- CART -->
+
+<div class="cart" id="cart">
+
+<h2>Your Cart</h2>
+
+<div id="cart-items"></div>
+
+<div class="total">
+Total: ₹<span id="total">0</span>
+</div>
+
+</div>
+
+<script>
+
+let cart = [];
+
+function toggleCart(){
+document.getElementById("cart").classList.toggle("active");
+}
+
+function addToCart(name,price){
+cart.push({name,price});
+updateCart();
+}
+
+function removeItem(index){
+cart.splice(index,1);
+updateCart();
+}
+
+function updateCart(){
+
+let cartItems=document.getElementById("cart-items");
+cartItems.innerHTML="";
+
+let total=0;
+
+cart.forEach((item,index)=>{
+
+total+=item.price;
+
+cartItems.innerHTML+=`
+<div class="cart-item">
+${item.name} - ₹${item.price}
+<button onclick="removeItem(${index})">X</button>
+</div>
+`;
+
+});
+
+document.getElementById("total").innerText=total;
+document.getElementById("cart-count").innerText=cart.length;
+
+}
+
+</script>
+
+</body>
+</html>
